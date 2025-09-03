@@ -1,5 +1,8 @@
-import 'package:extramobs_utilitarios/pages/pacientes_duplicados/pacientes_duplicados_view.dart';
+import 'package:extramobs_utilitarios/pages/main_home/main_home_view.dart';
+import 'package:extramobs_utilitarios/pages/main_home/main_home_viewmodel.dart';
+import 'package:extramobs_utilitarios/pattern/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CEOMed: Ferramentas internas',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+    return ChangeNotifierProvider(
+      create: (context) => MainHomeViewModel(),
+      child: MaterialApp(
+        title: 'CEOMed: Ferramentas internas',
+        theme: AppTheme.lightTheme,
+        home: MainHomeView(),
       ),
-      home: PacientesDuplicados(),
     );
   }
 }
