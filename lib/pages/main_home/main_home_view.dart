@@ -1,5 +1,4 @@
 import 'package:extramobs_utilitarios/pages/main_home/main_home_viewmodel.dart';
-import 'package:extramobs_utilitarios/pattern/generator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +29,27 @@ class MainHomeView extends StatelessWidget {
                             Radius.circular(12),
                           ),
                         ),
-                        child: const Center(child: Text('Conteúdo principal.')),
+                        child: (viewModel.tabs.isEmpty)
+                            ? Center(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  spacing: 10,
+                                  children: [
+                                    Chip(
+                                      label: Text(
+                                        "CTRL + K",
+                                        textAlign: TextAlign.center,
+                                        style: TextTheme.of(context).bodySmall
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                    Text("Para escolher uma ferramenta"),
+                                  ],
+                                ),
+                              )
+                            : null,
                       ),
                     ),
                   ),
