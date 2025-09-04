@@ -12,58 +12,11 @@ class MainHomeView extends StatelessWidget {
       body: Consumer<MainHomeViewModel>(
         builder:
             (BuildContext context, MainHomeViewModel viewModel, Widget? child) {
-              WidgetsBinding.instance.addPostFrameCallback((timestamp) {
-                if (viewModel.tabs.isEmpty) {
-                  for (int i = 0; i < 5; i++) {
-                    // Para testes
-                    String strText = List<String>.generate(
-                      100,
-                      (_) => randomHexChar(),
-                    ).join('');
-
-                    viewModel.addTab(
-                      DefaultTab(
-                        tip: strText,
-                        child: Text(
-                          strText,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    );
-                  }
-                }
-              });
+              WidgetsBinding.instance.addPostFrameCallback((timestamp) {});
 
               return Column(
                 children: [
-                  Column(
-                    children: [
-                      Container(
-                        height: 50,
-                        padding: const EdgeInsets.all(5.0),
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: viewModel.tabs.length,
-                          itemBuilder: (context, index) {
-                            return viewModel.tabs[index];
-                          },
-                          separatorBuilder: (context, index) => Padding(
-                            padding: EdgeInsetsGeometry.symmetric(
-                              horizontal: 3,
-                            ),
-                            child: VerticalDivider(
-                              width: 1,
-                              thickness: 1,
-                              indent: 5,
-                              endIndent: 5,
-                              color: Colors.grey.shade200,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  Column(children: [Tabs()]),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -85,6 +38,40 @@ class MainHomeView extends StatelessWidget {
               );
             },
       ),
+    );
+  }
+}
+
+class Tabs extends StatelessWidget {
+  const Tabs({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MainHomeViewModel>(
+      builder:
+          (BuildContext context, MainHomeViewModel viewModel, Widget? child) {
+            return Container(
+              height: 50,
+              padding: const EdgeInsets.all(5.0),
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: viewModel.tabs.length,
+                itemBuilder: (context, index) {
+                  return viewModel.tabs[index];
+                },
+                separatorBuilder: (context, index) => Padding(
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: 3),
+                  child: VerticalDivider(
+                    width: 1,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                    color: Colors.grey.shade200,
+                  ),
+                ),
+              ),
+            );
+          },
     );
   }
 }
