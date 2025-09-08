@@ -31,21 +31,12 @@ class MainHomeView extends StatelessWidget {
                         ),
                         child: (viewModel.tabs.isEmpty)
                             ? Center(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  spacing: 10,
-                                  children: [
-                                    Chip(
-                                      label: Text(
-                                        "CTRL + K",
-                                        textAlign: TextAlign.center,
-                                        style: TextTheme.of(context).bodySmall
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
+                                child: ShortcutLines(
+                                  shortcuts: [
+                                    Shortcut(
+                                      keys: ["CTRL", "K"],
+                                      label: "Para escolher uma ferramenta",
                                     ),
-                                    Text("Para escolher uma ferramenta"),
                                   ],
                                 ),
                               )
@@ -57,6 +48,64 @@ class MainHomeView extends StatelessWidget {
               );
             },
       ),
+    );
+  }
+}
+
+class ShortcutLines extends StatelessWidget {
+  const ShortcutLines({super.key, required this.shortcuts});
+
+  final List<Shortcut> shortcuts;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: shortcuts,
+    );
+  }
+}
+
+class Shortcut extends StatelessWidget {
+  const Shortcut({super.key, required this.keys, required this.label});
+
+  final List<String> keys;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      spacing: 20,
+
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 2.5,
+          children: [
+            for (final (int index, String key) in keys.indexed) ...[
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade400),
+                  borderRadius: const BorderRadius.all(Radius.circular(3)),
+                  color: Colors.grey.shade100,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                child: Text(
+                  key,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold),
+                ),
+              ),
+              if (index < keys.length - 1) Text("+"),
+            ],
+          ],
+        ),
+        Text(label),
+      ],
     );
   }
 }
