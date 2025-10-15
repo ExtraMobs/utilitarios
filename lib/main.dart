@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MainHomeViewModel(),
       child: MaterialApp(
-        title: 'CEOMed: Ferramentas internas',
+        title: 'Utilitários',
         theme: AppTheme.lightTheme,
         home: MainHomeView(),
       ),
