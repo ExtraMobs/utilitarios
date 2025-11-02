@@ -1,6 +1,6 @@
-import 'package:extramobs_utilitarios/pages/main_home/main_home_view.dart';
-import 'package:extramobs_utilitarios/pages/main_home/main_home_viewmodel.dart';
-import 'package:extramobs_utilitarios/pattern/theme.dart';
+import 'package:extramobs_utilitarios/ui/core/themes.dart';
+import 'package:extramobs_utilitarios/ui/home/view_model/view_model_home.dart';
+import 'package:extramobs_utilitarios/ui/home/widgets/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,11 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => MainHomeViewModel(),
+      create: (context) => ViewModelHome(),
       child: MaterialApp(
         title: 'Utilitários',
         theme: AppTheme.lightTheme,
-        home: MainHomeView(),
+        home: HomeScreen(),
       ),
     );
   }
